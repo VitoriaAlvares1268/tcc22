@@ -3,6 +3,7 @@ const app = express()
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
 var path = require('path')
+var Usuario = require("./model/usuario")
 
 app.use(cookieParser())
 app.use(bodyParser.json())
@@ -22,11 +23,26 @@ app.get('/usuarios', function(req, res){
     ]})
 })
 // O post é para ter resposta. para formularios etc //
-app.post('/add', function(req,res){
-    console.log("Cheguei até aqui")
+app.post('/cadastro', function(req,res){
+    var usuario = new Usuario({
+        nome: req.body.txtNome,
+        email: req.body.txtEmail,
+        senha: req.body.txtSenha,
+        foto: req.body.txtFoto,
+        telefone: req.body.txtTelefone,
+    })
+      usuario.save(function(err){
+          if(err){
+             console.log(err)
+          }else{
+              res.redirect("/")
+          }
+
+      })
+
 })
-app.get('/add', function(req,res){
-       res.render("Adiciona.ejs")
+app.get('/cadastro', function(req,res){
+       res.render("cadastro.ejs")
 })
 
 app.listen(3000, function() {
