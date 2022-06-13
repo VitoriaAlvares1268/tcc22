@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname,"public")))
 
 
 app.get('/', function(req, res){
-    res.render("index.ejs",{})
+    res.render("main.ejs",{})
 })
 
 app.get('/usuarios', function(req, res){
@@ -48,3 +48,4 @@ app.get('/cadastro', function(req,res){
 app.listen(3000, function() {
     console.log("Console iniciado na porta 3000")
 })
+
