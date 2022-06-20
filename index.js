@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname,"public")))
 
 
 app.get('/', function(req, res){
-    res.render("main.ejs",{})
+    res.render("men.ejs",{})
 })
 
 app.get('/usuarios', function(req, res){
@@ -39,13 +39,36 @@ app.post('/cadastro', function(req,res){
           }
 
       })
+})
+app.post('/login', function(req,res){
+    var usuario = new Usuario({
+        email: req.body.txtEmail,
+        senha: req.body.txtSenha,
+    })
+      usuario.save(function(err){
+          if(err){
+             console.log(err)
+          }else{
+              res.redirect("/")
+          }
+
+      })
 
 })
+
+
+
 app.get('/cadastro', function(req,res){
        res.render("cadastro.ejs")
 })
-
-app.listen(3000, function() {
-    console.log("Console iniciado na porta 3000")
+app.get('/login', function(req,res){
+    res.render("login.ejs")
 })
+app.get('/agendamento', function(req,res){
+    res.render("agendamento.ejs")
+})
+app.listen(4000, function() {
+    console.log("Console iniciado na porta 4000")
+})
+
 

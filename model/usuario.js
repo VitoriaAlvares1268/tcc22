@@ -8,6 +8,4 @@ var UsuarioSchema =conexao.Schema({
     foto:{type:String},
 })
 
-
-
 module.exports= conexao.model("Usuario",UsuarioSchema)
