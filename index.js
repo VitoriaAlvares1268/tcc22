@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname,"public")))
 
 
 app.get('/', function(req, res){
-    res.render("men.ejs",{})
+    res.render("mean.ejs",{})
 })
 
 app.get('/usuarios', function(req, res){
