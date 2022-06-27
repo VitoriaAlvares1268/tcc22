@@ -1,0 +1,27 @@
+{
+    "development": {
+      "username": "mongodb",
+      "password": "",
+      "database": "database",
+      "host": "localhost",
+      "port": "4000",
+      "dialect": "mongodb"
+    },
+    "test": {
+        "username": "postgres",
+        "password": "postgres",
+        "database": "database",
+        "host": "localhost",
+        "port": "5432",
+        "dialect": "postgres"
+    
+    },
+    "production": {
+        "username": "postgres",
+        "password": "postgres",
+        "database": "database",
+        "host": "localhost",
+        "port": "5432",
+        "dialect": "postgres"
+    }
+  }

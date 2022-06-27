@@ -11,9 +11,47 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.set("view engine","ejs")
 app.use(express.static(path.join(__dirname,"public")))
 
+app.get('/site', function(req, res){
+        res.render('mean.ejs', {})
+})
 
 app.get('/', function(req, res){
-    res.render("mean.ejs",{})
+    Usuario.find({}).exec(function(err,docs){
+        res.render('index.ejs', {Usuarios:docs})
+    })
+})
+app.get("/del/:id", function(req,res){
+    Usuario.findByIdAndDelete(req.params.id,function(err){
+        if(err){
+            console.log(err)
+        }else{
+            res.redirect("/")
+        }
+    })
+   
+})
+app.get("/edit/:id",function(req,res){
+    Usuario.findById(req.params.id, function(err, docs){
+        if(err){
+           console.log(err)
+        }else{
+            res.render("edita.ejs",{Usuario:docs})
+        }
+        
+    })
+    
+})
+app.post("/edit/:id",function(req,res){
+    Usuario.findByIdAndUpdate(req.params.id, 
+        {nome:req.body.txtNome,
+             email:req.body.txtEmail, 
+             senha:req.body.txtSenha,
+              foto:req.body.txtFoto, 
+              telefone:req.body.txtTelefone
+            }, function(err,docs){
+                res.redirect("/")
+            }
+              )
 })
 
 app.get('/usuarios', function(req, res){
@@ -59,6 +97,7 @@ app.post('/login', function(req,res){
 
 
 app.get('/cadastro', function(req,res){
+    
        res.render("cadastro.ejs")
 })
 app.get('/login', function(req,res){
@@ -67,8 +106,8 @@ app.get('/login', function(req,res){
 app.get('/agendamento', function(req,res){
     res.render("agendamento.ejs")
 })
-app.listen(4000, function() {
-    console.log("Console iniciado na porta 4000")
+app.listen(3000, function() {
+    console.log("Console iniciado na porta 000")
 })
 
 

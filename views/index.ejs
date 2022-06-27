@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios</title>
+    <style>
+        table,td ,tr,th{
+            border:1px solid black;
+        }
+        th{
+            font-weight: bolder;
+        }
+        td,th{
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>lista de usuarios</h1>
+    <p>Seja bem vindo na pagina inicial</p>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Foto</th>
+            <th>Editar</th>
+        </tr>
+           <%for(usuario of Usuarios){%>
+        <tr>
+            <td><%=usuario._id%></td>
+            <td><%=usuario.nome%></td>
+            <td><%=usuario.email%></td>
+            <td><%=usuario.foto%></td>
+            <td>
+                <a href="/del/<%=usuario._id%>">Deletar</a>
+            </td>
+            <td>
+                <a href="/edit/<%=usuario._id%>">Editar</a>
+            </td>
+        </tr>
+       <% } %>
+
+    </table>
+</body>
+</html>
