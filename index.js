@@ -15,7 +15,7 @@ app.get('/site', function(req, res){
         res.render('mean.ejs', {})
 })
 app.get('/dentro', function(req, res){
-    res.render('menu.ejs', {})
+    res.render('dentro1.ejs', {})
 })
 
 app.get('/', function(req, res){
