@@ -17,6 +17,12 @@ app.get('/site', function(req, res){
 app.get('/dentro', function(req, res){
     res.render('index.ejs', {})
 })
+app.get('/Perfil', function(req, res){
+    res.render('perfil.ejs', {})
+})
+app.get('/agendamento', function(req, res){
+    res.render('estatico.ejs', {})
+})
 
 app.get('/', function(req, res){
     Usuario.find({}).exec(function(err,docs){
@@ -65,6 +71,23 @@ app.get('/usuarios', function(req, res){
 })
 // O post é para ter resposta. para formularios etc //
 app.post('/cadastro', function(req,res){
+    var usuario = new Usuario({
+        nome: req.body.txtNome,
+        email: req.body.txtEmail,
+        senha: req.body.txtSenha,
+        foto: req.body.txtFoto,
+        telefone: req.body.txtTelefone,
+    })
+      usuario.save(function(err){
+          if(err){
+             console.log(err)
+          }else{
+              res.redirect("/")
+          }
+
+      })
+})
+app.post('/perfil', function(req,res){
     var usuario = new Usuario({
         nome: req.body.txtNome,
         email: req.body.txtEmail,
