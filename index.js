@@ -126,6 +126,10 @@ app.get('/cadastro', function(req,res){
     
        res.render("cadastro.ejs")
 })
+app.get('/agendamentoO', function(req,res){
+    
+    res.render("agendamento.ejs")
+})
 app.get('/login', function(req,res){
     res.render("login.ejs")
 })
