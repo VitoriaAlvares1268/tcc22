@@ -140,4 +140,6 @@ app.listen(3000, function() {
     console.log("Console iniciado na porta 000")
 })
 
-
+app.get('/PerfilUsuario', function(req,res){
+    res.render("Charts.ejs")
+})
