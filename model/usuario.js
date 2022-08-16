@@ -6,6 +6,7 @@ var UsuarioSchema =conexao.Schema({
     email:{type:String},
     senha:{type:String},
     foto:{type:String},
+
 })
 
 module.exports= conexao.model("Usuario",UsuarioSchema)

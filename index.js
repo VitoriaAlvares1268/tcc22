@@ -4,6 +4,7 @@ var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
 var path = require('path')
 var Usuario = require("./model/usuario")
+var Agenda = require("./model/agendamento")
 
 app.use(cookieParser())
 app.use(bodyParser.json())
@@ -27,6 +28,16 @@ app.get('/agendamento', function(req, res){
 app.get('/', function(req, res){
     Usuario.find({}).exec(function(err,docs){
         res.render('index.ejs', {Usuarios:docs})
+    })
+})
+app.get('/adic', function(req, res){
+    Usuario.find({}).exec(function(err,docs){
+        res.render('index1.ejs', {Usuarios:docs})
+    })
+})
+app.get('/reserva', function(req, res){
+    Agenda.find({}).exec(function(err,docs){
+        res.render('index2.ejs', {Agenda:docs})
     })
 })
 app.get("/del/:id", function(req,res){
@@ -87,29 +98,16 @@ app.post('/cadastro', function(req,res){
 
       })
 })
-app.post('/perfil', function(req,res){
-    var usuario = new Usuario({
-        nome: req.body.txtNome,
-        email: req.body.txtEmail,
-        senha: req.body.txtSenha,
-        foto: req.body.txtFoto,
-        telefone: req.body.txtTelefone,
-    })
-      usuario.save(function(err){
-          if(err){
-             console.log(err)
-          }else{
-              res.redirect("/")
-          }
 
-      })
-})
-app.post('/login', function(req,res){
-    var usuario = new Usuario({
+
+app.post('/agendamentoO', function(req,res){
+    var agenda = new Agenda({
         email: req.body.txtEmail,
-        senha: req.body.txtSenha,
+        data: req.body.txtData,
+        horario: req.body.txtHorario,
+
     })
-      usuario.save(function(err){
+      agenda.save(function(err){
           if(err){
              console.log(err)
           }else{
@@ -119,15 +117,13 @@ app.post('/login', function(req,res){
       })
 
 })
-
-
 
 app.get('/cadastro', function(req,res){
     
        res.render("cadastro.ejs")
 })
 app.get('/agendamentoO', function(req,res){
-    
+   
     res.render("agendamento.ejs")
 })
 app.get('/login', function(req,res){
