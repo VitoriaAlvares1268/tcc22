@@ -22,7 +22,14 @@ app.get('/Perfil', function(req, res){
     res.render('perfil.ejs', {})
 })
 app.get('/agendamento', function(req, res){
-    res.render('estatico.ejs', {})
+    Agenda.find({}).exec(function(err,docs){
+        res.render('estatico.ejs', {Agenda:docs})
+    })
+})
+app.get('/adm', function(req, res){
+    Agenda.find({}).exec(function(err,docs){
+        res.render('adm.ejs', {Agenda:docs})
+    })
 })
 
 app.get('/', function(req, res){
@@ -42,6 +49,16 @@ app.get('/reserva', function(req, res){
 })
 app.get("/del/:id", function(req,res){
     Usuario.findByIdAndDelete(req.params.id,function(err){
+        if(err){
+            console.log(err)
+        }else{
+            res.redirect("/")
+        }
+    })
+   
+})
+app.get("/del/:id", function(req,res){
+    Agenda.findByIdAndDelete(req.params.email,function(err){
         if(err){
             console.log(err)
         }else{
@@ -117,6 +134,23 @@ app.post('/agendamentoO', function(req,res){
       })
 
 })
+app.post('/adm', function(req,res){
+    var agenda = new Agenda({
+        email: req.body.txtEmail,
+        data: req.body.txtData,
+        horario: req.body.txtHorario,
+
+    })
+      agenda.save(function(err){
+          if(err){
+             console.log(err)
+          }else{
+              res.redirect("/")
+          }
+
+      })
+
+})
 
 app.get('/cadastro', function(req,res){
     
@@ -124,7 +158,7 @@ app.get('/cadastro', function(req,res){
 })
 app.get('/agendamentoO', function(req,res){
    
-    res.render("agendamento.ejs")
+    res.render("inscreva.ejs")
 })
 app.get('/login', function(req,res){
     res.render("login.ejs")
