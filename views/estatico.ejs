@@ -132,35 +132,7 @@
                         
                             </table>
                           </div>
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                Informações do seu pedido de agendamento
-                            </div>
-                            <div class="card-body">
-                                <table  id="datatablesSimple">
-                                    <thead>
-                                    <tr>
-                                        <th>Email</th>
-                                        <th>Data</th>
-                                        <th>Horario</th>
-                                    </tr>
-                                       <%for(agenda of Agenda){%>
-                                    <tr>
-                                        
-                                        <td><%=agenda.email%></td>
-                                        <td><%=agenda.data%></td>
-                                        <td><%=agenda.horario%></td>
-                                        <td>
-                                            <a href="/del/<%=agenda._id%>">Deletar</a>
-                                        </td>
-                                        <td>
-                                            <a href="/edit/<%=agenda._id%>">Editar</a>
-                                        </td>
-                                    </tr>
-                                   <% } %>
-                                </thead>
-                                </table>
+
                         </div>
                         <div style="height: 100vh"></div>
                         <div class="card mb-4"><div class="card-body">When scrolling, the navigation stays at the top of the page. This is the end of the static navigation demo.</div></div>
