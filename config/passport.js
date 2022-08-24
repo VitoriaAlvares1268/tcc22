@@ -1,11 +1,12 @@
 var passport = require("passport");
 var LocalStrategy = require("passport-local");
-var Usuario = require("../model/Usuario");
+var Usuario = require("../model/usuario");
 
 passport.use(
   new LocalStrategy(
     { usernameField: "email", passwordField: "senha" },
     function verify(username, password, cb) {
+      console.log(username + "" + password)
       Usuario.findOne({ email: username }).then(function (usuario) {
         if (!usuario) {
           return cb(null, false, {

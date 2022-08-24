@@ -5,6 +5,19 @@ var cookieParser = require('cookie-parser')
 var path = require('path')
 var Usuario = require("./model/usuario")
 var Agenda = require("./model/agendamento")
+var upload = require("./config/configMulter");
+const passport = require("./config/passport");
+var session = require("express-session");
+var autenticacao = require("./config/autenticacao");
+app.use(
+  session({
+    secret: "5info",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use(passport.authenticate("session"));
 
 app.use(cookieParser())
 app.use(bodyParser.json())
@@ -15,6 +28,7 @@ app.use(express.static(path.join(__dirname,"public")))
 app.get('/site', function(req, res){
         res.render('mean.ejs', {})
 })
+
 app.get('/dentro', function(req, res){
     res.render('index.ejs', {})
 })
@@ -163,6 +177,13 @@ app.get('/agendamentoO', function(req,res){
 app.get('/login', function(req,res){
     res.render("login.ejs")
 })
+app.post(
+    "/login",
+    passport.authenticate("local", {
+      successRedirect: "/dentro",
+      failureRedirect: "/login",
+    })
+  );
 app.get('/agendamento', function(req,res){
     res.render("agendamento.ejs")
 })
@@ -171,5 +192,5 @@ app.listen(3000, function() {
 })
 
 app.get('/PerfilUsuario', function(req,res){
-    res.render("Charts.ejs")
+    res.render("charts.ejs")
 })
