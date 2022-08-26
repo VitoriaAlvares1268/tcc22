@@ -18,11 +18,12 @@
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <form method="POST"
+              class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
                     
-                    <input class="form-control" type="text" placeholder="Pesquisar" aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button style="background-color: #f4623a;" class="btn " id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                    <input class="form-control" type="text" name="txtPesquisa"  placeholder="Pesquisar" aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <input style="background-color: #f4623a;" name="txtPesquisar"  class="btn " id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i>
                 </div>
             </form>
             <!-- Navbar-->
@@ -114,26 +115,26 @@
                             Email: <input type="email" name="txtEmail" placeholder="Email"><br>
                             <div class="d-flex">
                                 <div class="col-sm-12 col-md-6">
-                                  <label for="txtHorario" name="horario">Horário</label>
-                                  <select class="custom-select" size="multiple">
-                                    <option selected>Data</option>
-                                    <option value="1">9:00</option>
-                                    <option value="2">9:30</option>
-                                    <option value="3">10:30</option>
-                                    <option value="4">11:00</option>
+                                  <label for="txtHorario" name="txtHorario">Horário</label>
+                                <select name="txtHorario" class="custom-select"  size="multiple">
+                                    <option selected>Opções</option>
+                                    <option value="9:00"></option>
+                                    <option value="9:30"></option>
+                                    <option value="10:30"></option>
+                                    <option value="11:00"></option>
                     
                                   </select>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
-                                  <label for="txtData" name="data">Data</label>
-                                  <select class="custom-select" size="multiple">
+                                  <label for="txtData" name="txtData">Data</label>
+                                  <select name="txtData" class="custom-select" size="multiple">
                                     
-                                    <option selected>Hora</option>
-                                    <option value="1">09/08</option>
-                                    <option value="2">10/08</option>
-                                    <option value="3">11/08</option>
-                                    <option value="4">12/08</option>
-                                    <option value="5"></option>
+                                    <option selected>Opções</option>
+                                    <option value="09/08"></option>
+                                    <option value="10/08"></option>
+                                    <option value="10/08"></option>
+                                    <option value="10/08"></option>
+                                    <option value="10/08"></option>
                     
                                   </select>
                                 

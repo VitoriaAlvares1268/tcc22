@@ -51,6 +51,12 @@ app.get('/', function(req, res){
         res.render('index.ejs', {Usuarios:docs})
     })
 })
+app.post("/",function(req,res){
+    Usuario.find({nome: new RegExp(req.body.txtPesquisa,'g')}).exec(function(err,docs){
+        res.render('index.ejs',{Usuarios:docs})
+
+    })
+})
 app.get('/adic', function(req, res){
     Usuario.find({}).exec(function(err,docs){
         res.render('index1.ejs', {Usuarios:docs})
@@ -71,12 +77,12 @@ app.get("/del/:id", function(req,res){
     })
    
 })
-app.get("/del/:id", function(req,res){
-    Agenda.findByIdAndDelete(req.params.email,function(err){
+app.get("/reserva/del/:id", function(req,res){
+    Agenda.findByIdAndDelete(req.params.id,function(err){
         if(err){
             console.log(err)
         }else{
-            res.redirect("/")
+            res.redirect("/adm")
         }
     })
    
@@ -166,6 +172,7 @@ app.post('/adm', function(req,res){
 
 })
 
+
 app.get('/cadastro', function(req,res){
     
        res.render("cadastro.ejs")
@@ -186,6 +193,9 @@ app.post(
   );
 app.get('/agendamento', function(req,res){
     res.render("agendamento.ejs")
+})
+app.get('/vagas', function(req,res){
+    res.render("vagas.ejs")
 })
 app.listen(3000, function() {
     console.log("Console iniciado na porta 000")

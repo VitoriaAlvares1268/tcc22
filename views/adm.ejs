@@ -43,6 +43,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Reservas
                             </a>
+                            <a class="nav-link" href="/vagas">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Lançar Vagas
+                            </a>
 
                             <br>
                             <br>
@@ -119,6 +123,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                 <tr >
+                                    <th>Id</th>
                                     <th>Email</th>
                                     <th>Data</th>
                                     <th>Horario</th>
@@ -127,15 +132,21 @@
                                 </tr>
                                    <%for(agenda of Agenda){%>
                                 <tr>
-                                    
+                                    <td><%=agenda._id%></td>
                                     <td><%=agenda.email%></td>
                                     <td><%=agenda.data%></td>
                                     <td><%=agenda.horario%></td>
                                     <td>
-                                        <a href="/del/<%=agenda._id%>">Deletar</a>
+                                        <div class="text-center">
+                                            
+                                            <a type="button" href="reserva/del/<%=agenda._id%>"   class="btn-a btn-light" >Deletar</a>
+                
+                                          </div>
+                                        
                                     </td>
                                     <td>
-                                        <a href="/edit/<%=agenda._id%>">Editar</a>
+                                        
+                                        <a href="reserva/edit/<%=agenda._id%>">Editar</a>
                                     </td>
                                 </tr>
                                <% } %>
