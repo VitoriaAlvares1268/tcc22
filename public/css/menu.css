@@ -236,14 +236,14 @@ sup {
 
 a {
   color: #0d6efd;
-  text-decoration: underline;
+  text-decoration: none;
 }
 a:hover {
-  color: #0a58ca;
+  color: #f4623a;
 }
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
-  color: inherit;
+  color: #f4623a;
   text-decoration: none;
 }
 
@@ -11706,7 +11706,7 @@ body {
   }
   .btn-icon{
   padding: 8px;
-  background: #fff;
+  background: #fd7e14;
   }
   .btn-rounded {
 	-webkit-border-radius: 50px;
@@ -11714,4 +11714,14 @@ body {
 	-o-border-radius: 50px;
 	-ms-border-radius: 50px;
 	border-radius: 50px;
+  }
+  .btn-a:hover{
+  background-color: #f4623a;
+  padding: 1px 15px 3px 2px;
+  border-radius: 50px;
+  }
+
+  .btn-outline-light:hover{
+    color: #f8f9fa;
+    border-color: #f8f9fa;
   }

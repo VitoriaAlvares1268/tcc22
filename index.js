@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser')
 var path = require('path')
 var Usuario = require("./model/usuario")
 var Agenda = require("./model/agendamento")
+var Postagem = require("./model/postagem");
 var upload = require("./config/configMulter");
 const passport = require("./config/passport");
 var session = require("express-session");
@@ -43,6 +44,11 @@ app.get('/agendamento', function(req, res){
 app.get('/adm', function(req, res){
     Agenda.find({}).exec(function(err,docs){
         res.render('adm.ejs', {Agenda:docs})
+    })
+})
+app.get('/postagem', function(req, res){
+    Postagem.find({}).exec(function(err,docs){
+        res.render('vagas.ejs', {Postagem:docs})
     })
 })
 
@@ -194,13 +200,33 @@ app.post(
 app.get('/agendamento', function(req,res){
     res.render("agendamento.ejs")
 })
-app.get('/vagas', function(req,res){
-    res.render("vagas.ejs")
-})
+
 app.listen(3000, function() {
     console.log("Console iniciado na porta 000")
 })
 
 app.get('/PerfilUsuario', function(req,res){
     res.render("charts.ejs")
+
+})
+app.get('/postagem', function(req,res){
+    res.render("vagas.ejs")
+    
+})
+app.post('/postagem', function(req,res){
+    var postagem = new Postagem({
+        titulo: req.body.txtTitulo,
+        foto: req.body.txtFoto,
+        descricao: req.body.txtDescricao,
+
+    })
+      postagem.save(function(err){
+          if(err){
+            res.send("Aconteceu o seguinte erro: " + err);
+          }else{
+              res.redirect("/")
+          }
+
+      })
+
 })
