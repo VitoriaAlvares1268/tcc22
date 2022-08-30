@@ -48,7 +48,7 @@ app.get('/adm', function(req, res){
 })
 app.get('/postagem', function(req, res){
     Postagem.find({}).exec(function(err,docs){
-        res.render('vagas.ejs', {Postagem:docs})
+        res.render('vagas1.ejs', {Postagem:docs})
     })
 })
 
@@ -104,12 +104,12 @@ app.get("/edit/:id",function(req,res){
     })
     
 })
-app.post("/edit/:id",function(req,res){
+app.post("/edit/:id",upload.single("txtFoto"),function(req,res){
     Usuario.findByIdAndUpdate(req.params.id, 
         {nome:req.body.txtNome,
              email:req.body.txtEmail, 
              senha:req.body.txtSenha,
-              foto:req.body.txtFoto, 
+              foto:req.file.filename,
               telefone:req.body.txtTelefone
             }, function(err,docs){
                 res.redirect("/")
@@ -210,13 +210,13 @@ app.get('/PerfilUsuario', function(req,res){
 
 })
 app.get('/postagem', function(req,res){
-    res.render("vagas.ejs")
+    res.render("vagas1.ejs")
     
 })
-app.post('/postagem', function(req,res){
+app.post('/postagem',upload.single("txtFoto"),function(req,res){
     var postagem = new Postagem({
         titulo: req.body.txtTitulo,
-        foto: req.body.txtFoto,
+        foto: req.file.filename,
         descricao: req.body.txtDescricao,
 
     })
