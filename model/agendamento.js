@@ -4,7 +4,7 @@ var AgendaSchema =conexao.Schema({
     email:{type:String},
     data:{type:String},
     horario:{type:String},
-   
+    
 })
 
 

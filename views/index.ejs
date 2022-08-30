@@ -18,11 +18,10 @@
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    
-                    <input class="form-control" type="text" placeholder="Pesquisar" aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button style="background-color: #f4623a;" class="btn " id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+            <form method="post" class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group">                    
+                    <input class="form-control" type="text" name="txtPesquisa" placeholder="Pesquisar" aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button style="background-color: #f4623a;" class="btn " id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
                 </div>
             </form>
             <!-- Navbar-->
@@ -108,29 +107,20 @@
                             <li class="breadcrumb-item active">Selecione sua opção de emprego e agende sua entrevista</li>
                         </ol>
                         <div class="row">
-                        <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="./opera.jpg" alt="Imagem de capa do card">
+                        <!--Aqui inicia o for-->
+                        <% Postagens.forEach(function(postagem){%>
+                            <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" src="/fotos/<%=postagem.foto%>" alt="Imagem de capa do card">
                             <div class="card-body">
-                              <h5 class="card-title">Operador de Caixa</h5>
-                              <p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
+                              <h5 class="card-title"><%=postagem.titulo%></h5>
+                              <p class="card-text"><%=postagem.descricao%></p>
                               <div class="text-center">
-                                <a type="button" href="/agendamentoO" class="btn-a btn-outline-light ">Inscrever-se</a>
+                                <a type="button" href="/agendamento/<%=postagem._id%>" class="btn-a btn-outline-light ">Inscrever-se</a>
                               </div>
                             </div>
                           </div>
-                    
-                          <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="./repo.jpg" alt="Imagem de capa do card">
-                            <div class="card-body">
-                              <h5 class="card-title">Repositor </h5>
-                              <p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
-                              <div class="text-center">
-                                <a type="button" href="/agendamentoO" class="btn-a btn-outline-light ">Inscrever-se</a>
-                               
-                              </div>
-                              
-                          </div>
-                        </div>
+                    <!--Aqui finaliza-->
+                        <%})%>
                                 
                             </div>
                         

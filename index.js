@@ -26,170 +26,12 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.set("view engine","ejs")
 app.use(express.static(path.join(__dirname,"public")))
 
-app.get('/site', function(req, res){
-        res.render('mean.ejs', {})
-})
-
-app.get('/dentro', function(req, res){
-    res.render('index.ejs', {})
-})
-app.get('/Perfil', function(req, res){
-    res.render('perfil.ejs', {})
-})
-app.get('/agendamento', function(req, res){
-    Agenda.find({}).exec(function(err,docs){
-        res.render('estatico.ejs', {Agenda:docs})
-    })
-})
-app.get('/adm', function(req, res){
-    Agenda.find({}).exec(function(err,docs){
-        res.render('adm.ejs', {Agenda:docs})
-    })
-})
-app.get('/postagem', function(req, res){
-    Postagem.find({}).exec(function(err,docs){
-        res.render('vagas1.ejs', {Postagem:docs})
-    })
-})
-
-app.get('/', function(req, res){
-    Usuario.find({}).exec(function(err,docs){
-        res.render('index.ejs', {Usuarios:docs})
-    })
-})
-app.post("/",function(req,res){
-    Usuario.find({nome: new RegExp(req.body.txtPesquisa,'g')}).exec(function(err,docs){
-        res.render('index.ejs',{Usuarios:docs})
-
-    })
-})
-app.get('/adic', function(req, res){
-    Usuario.find({}).exec(function(err,docs){
-        res.render('index1.ejs', {Usuarios:docs})
-    })
-})
-app.get('/reserva', function(req, res){
-    Agenda.find({}).exec(function(err,docs){
-        res.render('index2.ejs', {Agenda:docs})
-    })
-})
-app.get("/del/:id", function(req,res){
-    Usuario.findByIdAndDelete(req.params.id,function(err){
-        if(err){
-            console.log(err)
-        }else{
-            res.redirect("/")
-        }
-    })
-   
-})
-app.get("/reserva/del/:id", function(req,res){
-    Agenda.findByIdAndDelete(req.params.id,function(err){
-        if(err){
-            console.log(err)
-        }else{
-            res.redirect("/adm")
-        }
-    })
-   
-})
-app.get("/edit/:id",function(req,res){
-    Usuario.findById(req.params.id, function(err, docs){
-        if(err){
-           console.log(err)
-        }else{
-            res.render("edita.ejs",{Usuario:docs})
-        }
-        
-    })
-    
-})
-app.post("/edit/:id",upload.single("txtFoto"),function(req,res){
-    Usuario.findByIdAndUpdate(req.params.id, 
-        {nome:req.body.txtNome,
-             email:req.body.txtEmail, 
-             senha:req.body.txtSenha,
-              foto:req.file.filename,
-              telefone:req.body.txtTelefone
-            }, function(err,docs){
-                res.redirect("/")
-            }
-              )
-})
-
-app.get('/usuarios', function(req, res){
-    res.render("usuarios.ejs",{usuarios:[
-        {nome:"Diego", email:"vihalavres@gmail.com"}, 
-        {nome:"Diego", email:"Ana@gmail.com"}
-    ]})
-})
-// O post é para ter resposta. para formularios etc //
-app.post('/cadastro', function(req,res){
-    var usuario = new Usuario({
-        nome: req.body.txtNome,
-        email: req.body.txtEmail,
-        senha: req.body.txtSenha,
-        foto: req.body.txtFoto,
-        telefone: req.body.txtTelefone,
-    })
-      usuario.save(function(err){
-          if(err){
-             console.log(err)
-          }else{
-              res.redirect("/")
-          }
-
-      })
-})
-
-
-app.post('/agendamentoO', function(req,res){
-    var agenda = new Agenda({
-        email: req.body.txtEmail,
-        data: req.body.txtData,
-        horario: req.body.txtHorario,
-
-    })
-      agenda.save(function(err){
-          if(err){
-             console.log(err)
-          }else{
-              res.redirect("/")
-          }
-
-      })
-
-})
-app.post('/adm', function(req,res){
-    var agenda = new Agenda({
-        email: req.body.txtEmail,
-        data: req.body.txtData,
-        horario: req.body.txtHorario,
-
-    })
-      agenda.save(function(err){
-          if(err){
-             console.log(err)
-          }else{
-              res.redirect("/")
-          }
-
-      })
-
-})
-
-
-app.get('/cadastro', function(req,res){
-    
-       res.render("cadastro.ejs")
-})
-app.get('/agendamentoO', function(req,res){
-   
-    res.render("inscreva.ejs")
-})
+//Abre tela de login
 app.get('/login', function(req,res){
     res.render("login.ejs")
 })
+
+//Loga
 app.post(
     "/login",
     passport.authenticate("local", {
@@ -197,23 +39,100 @@ app.post(
       failureRedirect: "/login",
     })
   );
-app.get('/agendamento', function(req,res){
-    res.render("agendamento.ejs")
+
+  //Abre cadastro
+app.get('/cadastro', function(req,res){
+    res.render("cadastro.ejs")
+})
+//cadastra
+app.post('/cadastro', function(req,res){
+    var usuario = new Usuario({
+        nome: req.body.txtNome,
+        email: req.body.txtEmail,
+        senha: req.body.txtSenha,
+    })
+      usuario.save(function(err){
+          if(err){
+             console.log(err)
+          }else{
+              res.redirect("/login")
+          }
+
+      })
 })
 
-app.listen(3000, function() {
-    console.log("Console iniciado na porta 000")
+//usando
+app.get('/dentro', function(req, res){
+    Postagem.find({}).exec(function(err,docs){
+        res.render('index.ejs', {Postagens:docs})
+    })
+})
+//pesquisar
+app.post("/dentro",function(req,res){
+    Postagem.find({titulo: new RegExp(req.body.txtPesquisa,'g')}).exec(function(err,docs){
+        res.render('index.ejs',{Postagens:docs})
+
+    })
 })
 
+app.get('/agendamento/:id', function(req,res){   
+    res.render("inscreva.ejs")
+})
+app.post('/agendamento/:id', function(req,res){
+    var agenda = new Agenda({
+        email: req.user.email,
+        data: req.body.txtData,
+        horario: req.body.txtHorario,
+    })
+      agenda.save(function(err){
+          if(err){
+             console.log(err)
+          }else{
+              res.redirect("/")
+          }
+      })
+})
+app.get('/agendamento', function(req, res){
+    Agenda.find({email:req.user.email}).exec(function(err,docs){
+        res.render('estatico.ejs', {Agenda:docs})
+    })
+})
+
+//usando
 app.get('/PerfilUsuario', function(req,res){
     res.render("charts.ejs")
 
 })
-app.get('/postagem', function(req,res){
-    res.render("vagas1.ejs")
-    
+
+//AQUI ACABOU A PARTE DO USUARIO
+
+
+//INICIO DO ADMIN
+app.get('/adm/reserva', function(req, res){
+    Agenda.find({}).exec(function(err,docs){
+        res.render('adm.ejs', {Agenda:docs})
+    })
 })
-app.post('/postagem',upload.single("txtFoto"),function(req,res){
+
+app.get("/adm/reserva/del/:id", function(req,res){
+    Agenda.findByIdAndDelete(req.params.id,function(err){
+        if(err){
+            console.log(err)
+        }else{
+            res.redirect("/adm/reserva")
+        }
+    })
+   
+})
+
+app.get('/adm/lancarvaga', function(req, res){
+    
+    res.render('vagas.ejs')
+
+})
+
+//usando
+app.post('/adm/lancarvaga',upload.single("txtFoto"),function(req,res){
     var postagem = new Postagem({
         titulo: req.body.txtTitulo,
         foto: req.file.filename,
@@ -224,9 +143,33 @@ app.post('/postagem',upload.single("txtFoto"),function(req,res){
           if(err){
             res.send("Aconteceu o seguinte erro: " + err);
           }else{
-              res.redirect("/")
+              res.redirect("/adm/vagas")
           }
 
       })
 
+})
+app.get('/adm/vagas', function(req, res){
+    Postagem.find({}).exec(function(err,docs){
+        res.render('admvagas.ejs', {Postagens:docs})
+    })
+})
+
+app.get("/adm/vagas/del/:id", function(req,res){
+    Postagem.findByIdAndDelete(req.params.id,function(err){
+        if(err){
+            console.log(err)
+        }else{
+            res.redirect("/adm/vagas")
+        }
+    })
+   
+})
+
+app.get('/', function(req, res){
+        res.render('mean.ejs', {})
+})
+
+app.listen(3000, function() {
+    console.log("Console iniciado na porta 000")
 })
