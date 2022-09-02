@@ -123,6 +123,7 @@
                                     <th>id</th>
                                     <th>Email</th>
                                     <th>Data</th>
+                                    <th>vaga</th>
                                     <th>Horario</th>
                                     <th>Opções</th>
                                 </tr>
@@ -131,10 +132,15 @@
                                     <td><%=agenda._id%></td>
                                     <td><%=agenda.email%></td>
                                     <td><%=agenda.data%></td>
+                                    <td><%=agenda.vaga%></td>
                                     <td><%=agenda.horario%></td>
                                     
                                     <td>
-                                        <a href="/reserva/del/<%=agenda._id%>">Deletar</a>
+                                        <div class="text-center">
+                                            
+                                            <a type="button" href="/reserva/del/<%=agenda._id%>"   class="btn-a btn-light" >Deletar</a>
+                
+                                          </div>
                                     </td>
                                     
                                 </tr>

@@ -4,6 +4,7 @@ var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
 var path = require('path')
 var Usuario = require("./model/usuario")
+var Perfil = require("./model/perfil")
 var Agenda = require("./model/agendamento")
 var Postagem = require("./model/postagem");
 var upload = require("./config/configMulter");
@@ -82,13 +83,14 @@ app.post('/agendamento/:id', function(req,res){
     var agenda = new Agenda({
         email: req.user.email,
         data: req.body.txtData,
+        vaga: req.body.txtVaga,
         horario: req.body.txtHorario,
     })
       agenda.save(function(err){
           if(err){
              console.log(err)
           }else{
-              res.redirect("/")
+              res.redirect("/agendamento/:id")
           }
       })
 })
@@ -102,6 +104,31 @@ app.get('/agendamento', function(req, res){
 app.get('/PerfilUsuario', function(req,res){
     res.render("charts.ejs")
 
+})
+app.post('/PerfilUsuario',upload.single("txtFoto"),function(req,res){
+    var perfil = new Perfil({
+        email: req.user.email,
+        curriculo: req.file.filename,
+        foto: req.file.filename,
+    })
+      perfil.save(function(err){
+          if(err){
+             console.log(err)
+          }else{
+              res.redirect("/PerfilUsuario")
+          }
+      })
+})
+
+app.get("/reserva/del/:id", function(req,res){
+    Agenda.findByIdAndDelete(req.params.id,function(err){
+        if(err){
+            console.log(err)
+        }else{
+            res.redirect("/agendamento")
+        }
+    })
+   
 })
 
 //AQUI ACABOU A PARTE DO USUARIO
