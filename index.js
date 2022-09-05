@@ -107,8 +107,8 @@ app.get('/PerfilUsuario', function(req,res){
 })
 app.post('/PerfilUsuario',upload.single("txtFoto"),function(req,res){
     var perfil = new Perfil({
+        perfi: req.file.filename,
         email: req.user.email,
-        curriculo: req.file.filename,
         foto: req.file.filename,
     })
       perfil.save(function(err){

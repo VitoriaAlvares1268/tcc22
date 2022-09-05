@@ -2,7 +2,7 @@ var conexao = require ("../config/conexao")
 
 
 var PerfilSchema =conexao.Schema({
-    nome:{type:String},
+    perfi:{type:String},
     email:{type:String},
     foto:{type:String},
 
