@@ -11,6 +11,7 @@ var upload = require("./config/configMulter");
 const passport = require("./config/passport");
 var session = require("express-session");
 var autenticacao = require("./config/autenticacao");
+const { title } = require('process')
 app.use(
   session({
     secret: "5info",
@@ -75,9 +76,18 @@ app.post("/dentro",function(req,res){
 
     })
 })
+app.post("/agendamento",function(req,res){
+    Agenda.find({data: new RegExp(req.body.txtPesquisa,'g')}).exec(function(err,docs){
+        res.render('estatico.ejs',{Agenda:docs})
 
-app.get('/agendamento/:id', function(req,res){   
-    res.render("inscreva.ejs")
+    })
+})
+
+app.get('/agendamento/:id', function(req,res){  
+     Postagem.findById(req.params.id).then(function(postagem){
+        res.render("inscreva.ejs", {Vaga:postagem})
+     })
+    
 })
 app.post('/agendamento/:id', function(req,res){
     var agenda = new Agenda({
@@ -90,7 +100,7 @@ app.post('/agendamento/:id', function(req,res){
           if(err){
              console.log(err)
           }else{
-              res.redirect("/agendamento/:id")
+              res.redirect("/agendamento")
           }
       })
 })
@@ -99,6 +109,7 @@ app.get('/agendamento', function(req, res){
         res.render('estatico.ejs', {Agenda:docs})
     })
 })
+
 
 //usando
 app.get('/PerfilUsuario', function(req,res){
