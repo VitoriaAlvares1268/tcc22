@@ -139,6 +139,8 @@
                                     <th>Vaga</th>
                                     <th>Horario</th>
                                     <th>-</th>
+                                    <th>-</th>
+
                                     <!--<th>-</th>-->
                                 </tr>
                                    <%for(agenda of Agenda){%>
@@ -156,6 +158,18 @@
                                           </div>
                                         
                                     </td>
+                                    <td>
+                                        <div class="text-center">
+                                            <script>
+                                                function abrirAlerta(){
+                                                    alert("Sua ENTREVISTA FOI ACEITA")
+                                                }
+                                            </script>
+                                            <a type="button" href="/adm/reserva/concluido/<%=agenda._id%>" onclick="abrirAlerta()"   class="btn-a btn-light" >Aceitar</a>
+                
+                                          </div>
+                                    </td>
+                                    
                                     <!--<td>
                                         
                                         <a href="reserva/edit/<%=agenda._id%>">Editar</a>

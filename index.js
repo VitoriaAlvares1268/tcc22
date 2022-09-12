@@ -167,6 +167,13 @@ app.get("/adm/reserva/del/:id", function(req,res){
     })
    
 })
+app.get("/adm/reserva/concluido", function(req,res){
+         function abrirAlerta(){
+            alert("Sua ENTREVISTA FOI ACEITA")
+        }
+   
+})
+
 
 app.get('/adm/lancarvaga', function(req, res){
     
