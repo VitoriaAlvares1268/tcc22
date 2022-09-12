@@ -118,7 +118,6 @@ app.get('/PerfilUsuario', function(req,res){
 })
 app.post('/PerfilUsuario',upload.single("txtFoto"),function(req,res){
     var perfil = new Perfil({
-        perfi: req.file.filename,
         email: req.user.email,
         foto: req.file.filename,
     })
@@ -146,6 +145,12 @@ app.get("/reserva/del/:id", function(req,res){
 
 
 //INICIO DO ADMIN
+app.get('/loginADM', function(req,res){
+    res.render("logadm.ejs")
+})
+app.post('/loginADM', function(req,res){
+      res.redirect("/adm/reserva")
+})
 app.get('/adm/reserva', function(req, res){
     Agenda.find({}).exec(function(err,docs){
         res.render('adm.ejs', {Agenda:docs})
@@ -203,6 +208,12 @@ app.get("/adm/vagas/del/:id", function(req,res){
     })
    
 })
+app.get('/adm/curriculo', function(req, res){
+    Perfil.find({}).exec(function(err,docs){
+        res.render('admcurriculo.ejs', {Perfil:docs})
+    })
+})
+
 
 app.get('/', function(req, res){
         res.render('mean.ejs', {})
